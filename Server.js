@@ -5,7 +5,7 @@ require('dotenv').config();
 const path = require('path');
 var admin = require("firebase-admin");
 
-var serviceAccount = require("../config/ai-travel-planner-app-6c709-firebase-adminsdk-1o8rw-354423620f.json");
+var serviceAccount = require("./config/ai-travel-planner-app-6c709-firebase-adminsdk-1o8rw-354423620f.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
