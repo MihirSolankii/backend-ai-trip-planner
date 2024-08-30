@@ -1,0 +1,22 @@
+{
+    "version": 2,
+    "functions": {
+      "backend/api/server.js": {
+        "memory": 128,
+        "maxDuration": 10
+      }
+    },
+    "builds": [
+      {
+        "src": "backend/api/server.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "/backend/api/server.js"
+      }
+    ]
+  }
+  
