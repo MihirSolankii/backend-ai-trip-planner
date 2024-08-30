@@ -1,21 +1,14 @@
 {
     "version": 2,
     "functions": {
-      "backend/api/server.js": {
-        "memory": 128,
-        "maxDuration": 10
+      "api/**/*.js": {
+        "runtime": "nodejs14.x" 
       }
     },
-    "builds": [
-      {
-        "src": "backend/api/server.js",
-        "use": "@vercel/node"
-      }
-    ],
     "routes": [
       {
-        "src": "/api/(.*)",
-        "dest": "/backend/api/server.js"
+        "src": "/(.*)",
+        "dest": "api/Server.js" 
       }
     ]
   }
