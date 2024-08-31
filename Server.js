@@ -5,7 +5,7 @@ require('dotenv').config();
 const path = require('path');
 var admin = require("firebase-admin");
 
-var serviceAccount = require("./config/ai-travel-planner-app-6c709-firebase-adminsdk-1o8rw-354423620f.json");
+var serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS,{ timeout: 20000 });
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -13,7 +13,7 @@ admin.initializeApp({
 
 const db = admin.firestore(); // Initialize Firestore instance
 const app = express();
-const stripe = Stripe("sk_test_51PDpQjSHdhtwBKzMGV7Jv4rA2Tcduant8zLIqMZabTvx6hctdlkiJRqAAZGWICUzRVU0qIsxFT8OmzNy1sLDCsOT00uWMSTV6p"); // Use environment variable for security
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY); // Use environment variable for security
 
 app.use(cors());
 app.use(express.json());
@@ -41,7 +41,7 @@ app.post('/create-checkout-session', async (req, res) => {
       payment_method_types: ['card'], // Use only 'card' for credit/debit card payments
       line_items: [{
         price_data: {
-          currency: 'inr',
+          currency: 'usd',
           product_data: {
             name: 'Credits Purchase',
           },
@@ -52,10 +52,12 @@ app.post('/create-checkout-session', async (req, res) => {
       mode: 'payment',
       success_url: `http://localhost:5173/update-trip-count?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `http://localhost:4000/cancel`,
+      
       metadata: {
         email,
         creditsToAdd: (amount / 100), // Assuming 1 USD = 10 credits
       },
+      
     });
     
 
