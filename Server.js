@@ -48,7 +48,7 @@ app.post('/create-checkout-session', async (req, res) => {
       payment_method_types: ['card'],
       line_items: [{
         price_data: {
-          currency: 'inr', // Use 'inr' for Indian Rupees
+          currency: 'usd', // Use 'inr' for Indian Rupees
           product_data: {
             name: 'Credits Purchase',
           },
@@ -107,5 +107,5 @@ app.get('/update-trip-count', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT =   5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
